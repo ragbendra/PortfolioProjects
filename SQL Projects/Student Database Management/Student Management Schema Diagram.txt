@@ -1,0 +1,78 @@
+```mermaid
+erDiagram
+    USER_LOGIN ||--o{ STUDENT_DETAILS : "has"
+    PARENT_DETAILS ||--o{ STUDENT_DETAILS : "linked to"
+    TEACHERS ||--o{ CLASS_DETAILS : "teaches"
+    TEACHERS ||--o{ SUBJECT : "heads"
+    TEACHERS ||--o{ SUBJECT   SUBJECT_TUTORS : "tutors"
+    CLASS_DETAILS ||--o{ STUDENT_DETAILS : "contains"
+    CLASS_DETAILS ||--o{ SUBJECT_TUTORS : "has"
+    SUBJECT ||--o{ SUBJECT_TUTORS : "taught in"
+
+    USER_LOGIN {
+        TEXT user_id PK
+        TEXT user_password
+        TEXT first_name
+        TEXT last_name
+        DATE sign_up_on
+        TEXT email_id
+    }
+
+    PARENT_DETAILS {
+        TEXT parent_id PK
+        TEXT father_first_name
+        TEXT father_last_name
+        TEXT father_email_id
+        TEXT father_mobile
+        TEXT father_occupation
+        TEXT mother_first_name
+        TEXT mother_last_name
+        TEXT mother_email_id
+        TEXT mother_mobile
+        TEXT mother_occupation
+    }
+
+    TEACHERS {
+        TEXT teacher_id PK
+        TEXT first_name
+        TEXT last_name
+        DATE date_of_birth
+        TEXT email_id
+        TEXT contact
+        DATE registration_date
+        TEXT registration_id UK
+    }
+
+    CLASS_DETAILS {
+        TEXT class_id PK
+        TEXT class_teacher FK
+        TEXT class_year
+    }
+
+    STUDENT_DETAILS {
+        TEXT student_id PK
+        TEXT first_name
+        TEXT last_name
+        DATE date_of_birth
+        TEXT class_id FK
+        TEXT roll_no
+        TEXT email_id
+        TEXT parent_id FK
+        DATE registration_date
+        TEXT registration_id UK
+    }
+
+    SUBJECT {
+        TEXT subject_id PK
+        TEXT subject_name
+        TEXT class_year
+        TEXT subject_head FK
+    }
+
+    SUBJECT_TUTORS {
+        SERIAL row_id PK
+        TEXT subject_id FK
+        TEXT teacher_id FK
+        TEXT class_id FK
+    }
+```

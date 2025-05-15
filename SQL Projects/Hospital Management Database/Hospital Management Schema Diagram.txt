@@ -1,0 +1,91 @@
+```mermaid
+erDiagram
+    USER_LOGIN
+    PATIENT ||--o{ PATIENT_VISITS : "has"
+    PATIENT ||--o{ PATIENTS_HISTORY : "has"
+    DOCTOR ||--o{ DIAGNOSE : "provides"
+    DOCTOR ||--o{ DOCTOR_SCHEDULES : "has"
+    DOCTOR ||--o{ DOCTOR_VIEW_HISTORY : "views"
+    APPOINTMENT ||--o{ PATIENT_VISITS : "scheduled"
+    APPOINTMENT ||--o{ DIAGNOSE : "for"
+    MEDICAL_HISTORY ||--o{ PATIENTS_HISTORY : "linked to"
+    MEDICAL_HISTORY ||--o{ DOCTOR_VIEW_HISTORY : "viewed by"
+    SCHEDULE ||--o{ DOCTOR_SCHEDULES : "assigned to"
+
+    USER_LOGIN {
+        TEXT user_id PK
+        TEXT user_password
+        TEXT first_name
+        TEXT last_name
+        DATE sign_up_on
+        TEXT email_id
+    }
+
+    PATIENT {
+        VARCHAR(50) email PK
+        VARCHAR(30) password
+        VARCHAR(50) name
+        VARCHAR(60) address
+        VARCHAR(20) gender
+    }
+
+    MEDICAL_HISTORY {
+        INT medical_history_id PK
+        DATE date
+        VARCHAR(100) conditions
+        VARCHAR(100) surgeries
+        VARCHAR(100) medication
+    }
+
+    DOCTOR {
+        VARCHAR(50) email PK
+        VARCHAR(20) gender
+        VARCHAR(30) password
+        VARCHAR(50) name
+    }
+
+    APPOINTMENT {
+        INT appointment_id PK
+        DATE date
+        TIME start_time
+        TIME end_time
+        VARCHAR(15) status
+    }
+
+    PATIENT_VISITS {
+        VARCHAR(50) patient FK
+        SERIAL appt FK
+        VARCHAR(40) concerns
+        VARCHAR(40) symptoms
+    }
+
+    SCHEDULE {
+        SERIAL schedule_id PK, UK
+        TIME start_time
+        TIME end_time
+        TIME break_time
+        VARCHAR(20) day
+    }
+
+    PATIENTS_HISTORY {
+        VARCHAR(50) patient FK
+        SERIAL history FK
+    }
+
+    DIAGNOSE {
+        SERIAL appt FK
+        VARCHAR(50) doctor FK
+        VARCHAR(40) diagnosis
+        VARCHAR(50) prescription
+    }
+
+    DOCTOR_SCHEDULES {
+        SERIAL sched FK
+        VARCHAR(50) doctor FK
+    }
+
+    DOCTOR_VIEW_HISTORY {
+        SERIAL history FK
+        VARCHAR(50) doctor FK
+    }
+```
